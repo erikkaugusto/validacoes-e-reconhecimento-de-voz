@@ -1,37 +1,44 @@
 function verificaSeOChutePossuiUmValorValido(chute) {
-    const numero = +chute; // vai converter para inteiro
+    const numero = +chute;
 
     if (chuteForInvalido(numero)) {
-        if (chute.toUpperCase() === "GAME OVER") {
+        if (chute.toUpperCase() === "GAME OVER" || chute.toUpperCase() === "GAMEOVER"){
+            document.body.innerHTML = `
+            <h2>GAME OVER</h2>
+            <h3>O player não aguentou a pressão e desistiu!</h3>
 
-            document.body.innerHTML =
-                `
-                <h2>Game Over!!!</h2>
-                <h3>Pressione o botão para jogar novamente</h3>
-                <button id="jogar-novamente" class="btn-jogar" >Jogar novamente</button>
-                `
-                document.body.style.backgroundColor = "black";
+            <button id="jogar-novamente" class="btn-jogar">Jogar novamente</button>
+            `;
         } else {
-
-            elementoChute.innerHTML += '<div>Valor Inválido</div>';
+            elementoChute.innerHTML += `
+            <div>Valor inválido!</div>
+        `;
+        return;
         }
     }
 
     if (numeroForMaiorOuMenorQueOValorPermitido(numero)) {
-        elementoChute.innerHTML += `<div>Valor inválido: Fale um número entre ${menorValor} e ${maiorValor}</div>`;
+        elementoChute.innerHTML += `
+            <div>Valor inválido: fale um número entre ${menorValor} e ${maiorValor}</div>
+        `;
         return;
     }
 
     if (numero === numeroSecreto) {
         document.body.innerHTML = `
-        <h2>Você acertou!</h2>
-        <h3>O número secreto era ${numeroSecreto}</h3>
-        <button id="jogar-novamente" class="btn-jogar">Jogar novamente</button>
+            <h2>Você acertou!</h2>
+            <h3>O número secreto era ${numeroSecreto}</h3>
+
+            <button id="jogar-novamente" class="btn-jogar">Jogar novamente</button>
         `;
-    } else if (numero > numeroSecreto) {
-        elementoChute.innerHTML += `<div>O número secreto é menor <i class="fa-solid fa-down-long"></i></div>`
+    } else if (numero > numeroSecreto){
+        elementoChute.innerHTML += `
+        <div>O número secreto é menor <i class="fa-solid fa-down-long"></i></div>
+        `
     } else {
-        elementoChute.innerHTML += `<div>O número secreto é maior <i class="fa-solid fa-up-long"></i></div>`
+        elementoChute.innerHTML += `
+        <div>O número secreto é maior <i class="fa-solid fa-up-long"></i></div>
+        `
     }
 }
 
@@ -44,7 +51,7 @@ function numeroForMaiorOuMenorQueOValorPermitido(numero) {
 }
 
 document.body.addEventListener('click', e => {
-    if (e.target.id == 'jogar-novamente') {
-        window.location.reload(); // vai recarregar a página
+    if (e.target.id == 'jogar-novamente'){
+        window.location.reload();
     }
 })
